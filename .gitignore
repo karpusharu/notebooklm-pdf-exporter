@@ -1,0 +1,45 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Claude Code
+.claude/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (if added in future)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build artifacts
+dist/
+build/
+*.crx
+*.pem
+
+# Debug
+*.log
+debug.log
+
+# Temporary files
+*.tmp
+temp/
+tmp/
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Project-specific
+Program.js
