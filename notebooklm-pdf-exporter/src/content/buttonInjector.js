@@ -3,6 +3,7 @@ class ButtonInjector {
     this.injected = false;
     this.observer = null;
     this.panelObserver = null;
+    this.panelStateObserver = null;
     this.button = null;
     this.targetSelectors = [
       // Primary: NotebookLM note editor headers
@@ -25,8 +26,9 @@ class ButtonInjector {
       }
     });
 
-    // Observe body for DOM changes
-    this.observer.observe(document.body, {
+    // Observe documentElement (html) instead of body - body may not exist yet on initial load
+    const targetNode = document.body || document.documentElement;
+    this.observer.observe(targetNode, {
       childList: true,
       subtree: true
     });
@@ -53,13 +55,18 @@ class ButtonInjector {
         // Initial visibility check
         this.updateButtonVisibility();
       }
+      // Also try to inject button when panel state changes
+      this.tryInject();
     };
 
-    // Check immediately and on DOM changes
+    // Check immediately
     checkPanel();
-    this.observer?.disconnect();
-    this.observer = new MutationObserver(checkPanel);
-    this.observer.observe(document.body, { childList: true, subtree: true });
+
+    // Use a separate observer for panel watching (don't disconnect the injection observer)
+    // Observe documentElement instead of body - body may not exist yet on initial load
+    this.panelStateObserver = new MutationObserver(checkPanel);
+    const targetNode = document.body || document.documentElement;
+    this.panelStateObserver.observe(targetNode, { childList: true, subtree: true });
   }
 
   updateButtonVisibility() {
@@ -141,6 +148,9 @@ class ButtonInjector {
     }
     if (this.panelObserver) {
       this.panelObserver.disconnect();
+    }
+    if (this.panelStateObserver) {
+      this.panelStateObserver.disconnect();
     }
   }
 
