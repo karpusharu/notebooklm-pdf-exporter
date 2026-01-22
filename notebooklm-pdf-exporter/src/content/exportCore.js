@@ -154,6 +154,24 @@ class NotebookLMExporter {
       p, div, li { line-height: 1.5; font-size: 14.5px; }
       ul, ol { padding-inline-start: 22px; }
       img, pre, code, blockquote, table { page-break-inside: avoid; }
+      table {
+        border-collapse: collapse !important;
+        width: 100% !important;
+        margin: 16px 0 !important;
+      }
+      table th,
+      table td,
+      tbody tr td,
+      thead tr th {
+        border: 1px solid #d1d5db !important;
+        padding: 8px 12px !important;
+        text-align: left !important;
+      }
+      table th,
+      thead tr th {
+        background-color: #f3f4f6 !important;
+        font-weight: 600 !important;
+      }
       a { color: inherit; text-decoration: none; }
       hr { border: none; height: 1px; background: #e5e7eb; margin: 16px 0; }
       .katex, .MathJax, .mjx-chtml { font-size: 1em; }
@@ -180,6 +198,22 @@ class NotebookLMExporter {
         body {
           -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
+        }
+        /* Force table borders in print */
+        table {
+          border-collapse: collapse !important;
+        }
+        table th,
+        table td,
+        tbody tr td,
+        thead tr th {
+          border: 1px solid #d1d5db !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        table th,
+        thead tr th {
+          background-color: #f3f4f6 !important;
         }
       }
     `;
